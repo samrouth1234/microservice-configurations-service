@@ -1,0 +1,12 @@
+eureka: # eureka server configuration
+  instance:
+    hostname: localhost  # eureka server hostname
+  client : # eureka client configuration
+    register-with-eureka: false  # tells whether to register itself with eureka server
+    fetch-registry: false # tells whether to fetch registry from eureka server
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/ # eureka server url
+server:
+  port: 8761
+
+
