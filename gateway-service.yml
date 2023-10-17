@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: student-service  # unique id of the route
+          uri: lb://STUDENT-SERVICE # load balanced uri
+          predicates:
+            - Path=/api/v1/students/** # predicate that filters requests that matches the specified path
+        - id: school-service
+          uri: lb://SCHOOL-SERVICE
+          predicates:
+            - Path=/api/v1/schools/**
+        - id: teacher-service
+          uri: lb://TEACHER-SERVICE
+          predicates:
+            - Path=/api/v1/teachers/**
+      discovery:
+        locator:
+          enabled: true
+
+eureka:
+  client:
+    register-with-eureka: true    #registers the service with eureka server
+    fetch-registry: true          #fetches the registry from the eureka server
+    service-url:                  #eureka server url
+      defaultZone: http://localhost:8761/eureka/  #default zone
+    instance:
+      hostname: localhost
+server:
+  port: 8022
+
